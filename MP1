@@ -1,0 +1,180 @@
+#include <iostream> //pre-processor directive
+#include <cmath> //for solving complicated maths
+#include <string.h> //for string function
+#define nMAX 50 //directive to define a numeric constant
+#define iMAX 10
+
+using namespace std;
+//declarations
+char name [nMAX][20]; //for name of student
+double iReport [iMAX]; //for individual report
+double gReport [iMAX]; //for group report
+double quiz[2]; //for quizzes
+double mExam [2]; //for major exams
+
+int ctr, ctr1;
+int sum1, sum2, sum3, sum4;
+float ave1, ave2, ave3, ave4;
+float IRcomp[nMAX], GRcomp[nMAX], Qcomp[nMAX], MEcomp[nMAX], Fgrade[nMAX], Tgrade[nMAX];
+char Agrade[nMAX], temp2[nMAX];
+float temp;
+
+int main () 
+{
+	cout<< "\nRECORD OF GRADES\n"; //prints record of grade
+	
+	//recording of grades
+	for (ctr=0;ctr<nMAX;ctr++) 
+	{
+	cout<<"\nSTUDENT(Last Name) [" << ctr+1 << "]: ";
+		cin>>name[ctr];
+		
+		sum1=sum2=sum3=sum4=0;
+		ave1=ave2=ave3=ave4=0;
+		
+		cout<<"INDIVIDUAL REPORTS:\n"; //prints individual reports
+		for (ctr1=0;ctr1<iMAX;ctr1++)
+		{
+			cout<<" " <<ctr1 + 1 << ". ";
+			cin >> iReport[ctr1];
+			
+			sum1 = sum1 + iReport[ctr1];
+		}
+			ave1 = (float) sum1 / iMAX;
+			IRcomp[ctr] = ave1 * (0.15); // computation for individual reports
+			
+		//	print of ave1, IRcomp[ctr] 
+		
+		cout<< "GROUP REPORTS:\n"; //prints group reports
+		for (ctr1=0;ctr1<iMAX;ctr1++){
+		    cout<<" " << ctr1 + 1 << ". ";
+			cin >> gReport[ctr1];
+			
+			sum2 = sum2 + gReport[ctr1];
+		}
+			ave2 = (float) sum2 / iMAX;
+			GRcomp[ctr] = ave2 * (0.25); // computation for group reports
+			
+		//	print of ave2, GRcomp[ctr];
+		
+		cout<<"QUIZZES:\n"; //prints quizzes
+		for (ctr1=0;ctr1<2;ctr1++){
+			cout<<" "<< ctr1 + 1 << ". ";
+			cin >> quiz[ctr1];
+			
+			sum3 = sum3 + quiz[ctr1];
+		}
+			ave3 = (float) sum3 / 2;
+			Qcomp[ctr] = ave3 * (0.20); // computation for quizzes
+			
+		//	print of ave3, Qcomp[ctr];
+		
+		cout<<"MAJOR EXAMINATIONS:\n"; //prints major examination
+		for (ctr1=0;ctr1<2;ctr1++){
+			cout<<" " << ctr1 + 1 << ". ";
+			cin >> mExam[ctr1];
+			
+			sum4 = sum4 + mExam[ctr1];
+		}
+			ave4 = (float) sum4 / 2;
+			MEcomp[ctr] = ave4 * (0.40); // computation for Major Exams
+			
+		//	print of ave3, MEcomp[ctr];
+		
+	Fgrade[ctr] = IRcomp[ctr] + GRcomp[ctr] + Qcomp[ctr] + MEcomp[ctr];	
+	
+	}
+	
+	/* LIST OF 50 STUDENTS */
+	/* Displaying final grade */
+	cout<<"\n\nFINAL RECORD OF GRADES\n";
+	cout <<"\n\t\tRaw Grade\tGPA\t(P)ass/(F)ailed\n";
+	for (ctr=0;ctr<nMAX;ctr++) {
+		cout<<" " <<  name[ctr] << ":\t  " << Fgrade[ctr]; 
+		
+		if(Fgrade[ctr] > 95.56 && Fgrade[ctr] <= 100.00) {
+			Tgrade[ctr] = 1.00;} 
+		if(Fgrade[ctr] > 91.11 && Fgrade[ctr] <= 95.56) {
+			Tgrade[ctr] = 1.25;} 
+		if(Fgrade[ctr] > 86.67 && Fgrade[ctr] <= 91.11) {
+			Tgrade[ctr] = 1.50;} 
+		if(Fgrade[ctr] > 82.22 && Fgrade[ctr] <= 86.67) {
+			Tgrade[ctr] = 1.75;} 
+		if(Fgrade[ctr] > 77.78 && Fgrade[ctr] <= 82.22) {
+			Tgrade[ctr] = 2.00;} 
+		if(Fgrade[ctr] > 73.33 && Fgrade[ctr] <= 77.78) {
+			Tgrade[ctr] = 2.25;} 
+		if(Fgrade[ctr] > 68.89 && Fgrade[ctr] <= 73.33) {
+			Tgrade[ctr] = 2.50;} 
+		if(Fgrade[ctr] > 64.44 && Fgrade[ctr] <= 68.89) {
+			Tgrade[ctr] = 2.75;} 
+		if(Fgrade[ctr] >= 60.00 && Fgrade[ctr] <= 64.44) {
+			Tgrade[ctr] = 3.00;}
+		if(Fgrade[ctr] < 60.00) {
+			Tgrade[ctr] = 5.00;} 
+		
+	cout<<"\t\t"<< Tgrade[ctr]; 
+	
+		if (Tgrade[ctr] == 1.00 || Tgrade[ctr] == 1.25 || Tgrade[ctr] == 1.50 || Tgrade[ctr] == 1.75 || 
+			Tgrade[ctr] == 2.00 || Tgrade[ctr] == 2.25 || Tgrade[ctr] == 2.50 || Tgrade[ctr] == 2.75 || Tgrade[ctr] == 3.00) {
+			Agrade[ctr] = 'P';}
+		else {
+			Agrade[ctr] = 'F';}
+	
+	cout<<"\t\t"<< Agrade[ctr] << endl; 
+	}
+	
+	
+	/* LIST OF TOP 10 */
+	//	Bubble Sort - Numerical Order
+	for (ctr=0; ctr<nMAX; ++ctr) {
+        for (ctr1=0; ctr1<nMAX;++ctr1) {
+            if (Fgrade[ctr1] < Fgrade[ctr]){
+                temp = Fgrade[ctr1] ;
+                strcpy(temp2, name[ctr1]);
+                Fgrade[ctr1] = Fgrade[ctr] ;
+                strcpy(name[ctr1], name[ctr]);
+                Fgrade[ctr] = temp;
+                strcpy(name[ctr], temp2);
+            }
+        }
+	}
+	
+	cout<<"\n\nTOP 10\n"; //prints top 10
+	cout <<"\n\t\tRaw Grade\tGPA\t(P)ass/(F)ailed\n";
+	for (ctr=0;ctr<10;ctr++) {
+		cout<<" " <<  name[ctr] << ":\t  " << Fgrade[ctr]; 
+		
+		if(Fgrade[ctr] > 95.56 && Fgrade[ctr] <= 100.00) {
+			Tgrade[ctr] = 1.00;} 
+		if(Fgrade[ctr] > 91.11 && Fgrade[ctr] <= 95.56) {
+			Tgrade[ctr] = 1.25;} 
+		if(Fgrade[ctr] > 86.67 && Fgrade[ctr] <= 91.11) {
+			Tgrade[ctr] = 1.50;} 
+		if(Fgrade[ctr] > 82.22 && Fgrade[ctr] <= 86.67) {
+			Tgrade[ctr] = 1.75;} 
+		if(Fgrade[ctr] > 77.78 && Fgrade[ctr] <= 82.22) {
+			Tgrade[ctr] = 2.00;} 
+		if(Fgrade[ctr] > 73.33 && Fgrade[ctr] <= 77.78) {
+			Tgrade[ctr] = 2.25;} 
+		if(Fgrade[ctr] > 68.89 && Fgrade[ctr] <= 73.33) {
+			Tgrade[ctr] = 2.50;} 
+		if(Fgrade[ctr] > 64.44 && Fgrade[ctr] <= 68.89) {
+			Tgrade[ctr] = 2.75;} 
+		if(Fgrade[ctr] >= 60.00 && Fgrade[ctr] <= 64.44) {
+			Tgrade[ctr] = 3.00;}
+		if(Fgrade[ctr] < 60.00) {
+			Tgrade[ctr] = 5.00;} 
+		
+	cout<<"\t\t"<< Tgrade[ctr]; 
+	
+		if (Tgrade[ctr] == 1.00 || Tgrade[ctr] == 1.25 || Tgrade[ctr] == 1.50 || Tgrade[ctr] == 1.75 || 
+			Tgrade[ctr] == 2.00 || Tgrade[ctr] == 2.25 || Tgrade[ctr] == 2.50 || Tgrade[ctr] == 2.75 || Tgrade[ctr] == 3.00) {
+			Agrade[ctr] = 'P';}
+		else {
+			Agrade[ctr] = 'F';}
+	
+	cout<<"\t\t"<< Agrade[ctr] << endl; 
+	}
+	
+}
